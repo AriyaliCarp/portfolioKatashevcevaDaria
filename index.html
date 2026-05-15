@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Портфолио | Каташевцева Дарья</title>
-    <!-- ПОДКЛЮЧЕНИЕ ИКОНКИ САЙТА -->
-    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <!-- ИСПРАВЛЕНО: ПОДКЛЮЧЕНИЕ ИКОНКИ ЧЕРЕЗ АБСОЛЮТНЫЙ ПРЯМОЙ АДРЕС С ОБХОДОМ КЭША -->
+    <link rel="icon" type="image/png" href="https://github.io">
+    
     <style>
         /* ИНТЕРФЕЙС 3D-РЕДАКТОРА (BLENDER / UNREAL ENGINE STYLE) */
         body {
@@ -341,8 +343,23 @@
             transform: scale(1);
         }
 
+        /* МОБИЛЬНАЯ ВЕРСИЯ */
         @media (max-width: 768px) {
-            .resume-grid, .footer-info-grid, .projects-grid { grid-template-columns: 1fr; }
+            .resume-grid, .projects-grid, .diplomas-container { 
+                grid-template-columns: 1fr; 
+            }
+            .footer-info-grid { 
+                grid-template-columns: 1fr !important; 
+                gap: 20px;
+            }
+            .date { 
+                float: none; 
+                display: block; 
+                margin-top: 5px; 
+            }
+            .main-header h1 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
@@ -386,7 +403,6 @@
                 <div class="info-side">
                     <div class="bio-text">
                         <h3>Обо мне</h3>
-                        <!-- ТЕКСТ ОБНОВЛЕН СОГЛАСНО ТРЕБОВАНИЯМ -->
                         <p>Я выпускница 11 класса. Окончила обучение по углубленному информационно-математическому профилю. Моя цель — поступить в вуз/институт и освоить профессии Software Developer и CG-Artist, развивая максимум практических навыков.</p>
                     </div>
 
@@ -513,11 +529,12 @@
                 <h2>Рекомендации</h2>
                 <div class="rec-item">
                     <strong>Хитева Ольга Александровна</strong>
-                    <p>Почта: olghit@yandex.ru <br> Тел: +999999999</p>
+                    <!-- ИСПРАВЛЕНО: ТЕЛЕФОНЫ ПОЛНОСТЬЮ УБРАНЫ -->
+                    <p>Почта: olghit@yandex.ru</p>
                 </div>
                 <div class="rec-item">
                     <strong>Барановская Ольга Леонидовна</strong>
-                    <p>Почта: olghit@yandex.ru <br> Тел: +999999999</p>
+                    <p>Почта: olghit@yandex.ru</p>
                 </div>
             </div>
             
