@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфолио | Каташевцева Дарья</title>
+    <style>
+        /* ИНТЕРФЕЙС 3D-РЕДАКТОРА (BLENDER / UNREAL ENGINE STYLE) */
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #181a1f; 
+            
+            /* Четкая, строгая сетка как в окне проекции 3D */
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-attachment: fixed;
+            
+            color: #bccee0; 
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        /* ТЕМНО-ЧЕРНИЧНАЯ ШАПКА */
+        .main-header {
+            background-color: #1d202b; 
+            padding: 55px 20px;
+            text-align: center;
+            border-bottom: 2px solid #00b4d8; 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ЗАМЕНА ШРИФТА НА #b7cfd7 */
+        .main-header h1 {
+            font-size: 2.5rem;
+            margin: 0 0 10px 0;
+            color: #b7cfd7; 
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .main-header .subtitle {
+            display: block;
+            font-size: 1.1rem;
+            color: #22d3ee; 
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 500;
+            margin: 0 0 15px 0;
+        }
+
+        /* Контурная ссылка на Телеграм */
+        .telegram-link {
+            display: inline-block;
+            padding: 8px 24px;
+            background-color: #181a1f;
+            color: #22d3ee;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 1px solid #41485a;
+            transition: all 0.2s ease;
+        }
+
+        .telegram-link:hover {
+            border-color: #22d3ee;
+            background-color: #21252b;
+            color: #ffffff;
+        }
+
+        /* Профессиональные панели */
+        .section {
+            background: linear-gradient(180deg, #1f232b 0%, #1a1d24 100%); 
+            border: 1px solid #282c34;
+            padding: 40px;
+            margin-bottom: 35px;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        /* ЗАМЕНА ШРИФТА НА #b7cfd7 В ЗАГОЛОВКАХ СЕКЦИЙ */
+        h2 {
+            font-size: 1.5rem;
+            color: #b7cfd7;
+            margin-top: 0;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #282c34;
+            letter-spacing: 0.5px;
+        }
+
+        h3 {
+            color: #00b4d8; 
+            font-size: 1.25rem;
+            margin-top: 0;
+            border-bottom: 1px solid #282c34;
+            padding-bottom: 8px;
+            font-weight: 600;
+        }
+
+        /* Сетка Резюме */
+        .resume-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 40px;
+        }
+
+        .profile-side { text-align: center; }
+
+        .profile-img {
+            width: 210px;
+            height: 210px;
+            border-radius: 6px; 
+            object-fit: cover;
+            border: 1px solid #3e4451;
+            margin-bottom: 25px;
+            cursor: pointer;
+        }
+
+        /* Блок навыков */
+        .skills-block {
+            text-align: left;
+            background: #15171c;
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid #282c34;
+        }
+
+        .skills-block h3 {
+            color: #f472b6; 
+            border-bottom-color: #282c34;
+        }
+
+        .skills-block ul { padding-left: 0; margin: 0; list-style: none; }
+        .skills-block li { 
+            margin-bottom: 8px; 
+            font-size: 0.95rem; 
+            color: #abb2bf;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .skills-block li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 4px;
+            height: 4px;
+            background-color: #00b4d8;
+        }
+
+        /* Образование */
+        .edu-item {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #282c34;
+        }
+
+        .edu-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        
+        /* ЗАМЕНА ШРИФТА НА #b7cfd7 В НАЗВАНИЯХ УЧЕБНЫХ ЗАВЕДЕНИЙ */
+        .edu-item h4 { margin: 5px 0; color: #b7cfd7; font-size: 1.15rem; }
+        .edu-info { margin: 4px 0 12px 0; font-size: 0.95rem; color: #6c7a89; }
+
+        .date {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #f472b6;
+            float: right;
+        }
+
+        /* Результаты ЕГЭ */
+        .ege-panel {
+            margin-top: 15px;
+            background: #15171c;
+            border: 1px solid #282c34;
+            border-radius: 6px;
+            padding: 12px 20px;
+            display: inline-block;
+        }
+
+        .ege-row {
+            display: inline-block;
+            margin-right: 25px;
+            font-size: 0.95rem;
+        }
+
+        .ege-row:last-child { margin-right: 0; }
+        
+        .ege-label {
+            color: #6c7a89;
+            margin-right: 5px;
+        }
+
+        /* ЗАМЕНА ШРИФТА НА #b7cfd7 В ЗНАЧЕНИЯХ БАЛЛОВ ЕГЭ */
+        .ege-val {
+            color: #b7cfd7;
+            font-weight: 600;
+            background-color: #21252b;
+            padding: 2px 8px;
+            border-radius: 4px;
+            border: 1px solid #282c34;
+        }
+
+        /* Сетка документов */
+        .diplomas-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .diploma-card {
+            background: #15171c;
+            border: 1px solid #282c34;
+            border-radius: 6px;
+            padding: 20px;
+        }
+
+        .diploma-card h4 { color: #f472b6; margin: 12px 0 6px 0; font-size: 1.1rem; }
+        .doc-img { width: 100%; height: 190px; object-fit: cover; border-radius: 4px; border: 1px solid #282c34; cursor: pointer; }
+
+        /* Двухстрочные личные проекты */
+        .project-row-title {
+            font-size: 1.1rem;
+            color: #6c7a89;
+            margin: 20px 0 15px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .project-row-title::after {
+            content: "";
+            flex-grow: 1;
+            height: 1px;
+            background: #282c34;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 30px;
+            margin-bottom: 35px;
+        }
+
+        .project-card {
+            background: #15171c;
+            border: 1px solid #282c34;
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+            transition: border-color 0.2s ease;
+        }
+
+        .project-card:hover {
+            border-color: #00b4d8;
+        }
+
+        .project-card h4 { color: #00b4d8; margin: 15px 0 8px 0; font-size: 1.2rem; }
+        
+        .project-img { 
+            width: 100%; 
+            height: 240px; 
+            object-fit: cover; 
+            border-radius: 6px; 
+            border: 1px solid #282c34; 
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .project-img:hover, .doc-img:hover, .profile-img:hover {
+            opacity: 0.9;
+        }
+
+        /* Контакты */
+        .footer-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .rec-item { margin-bottom: 20px; }
+        
+        /* ЗАМЕНА ШРИФТА НА #b7cfd7 В ИМЕНАХ РЕКОМЕНДАТЕЛЕЙ */
+        .rec-item strong { color: #b7cfd7; font-size: 1.05rem; }
+        .contacts p { margin: 10px 0; color: #abb2bf; }
+
+        .page-footer {
+            text-align: center;
+            padding: 30px;
+            background: #111317;
+            color: #5c6370;
+            font-size: 0.9rem;
+            margin-top: 50px;
+            border-top: 1px solid #282c34;
+        }
+
+        /* ОКНО ПРОСМОТРА КАРТИНОК */
+        .overlay-view {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 17, 26, 0.95); 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            cursor: zoom-out;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .overlay-view.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .overlay-view img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 8px;
+            border: 2px solid #282c34;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .overlay-view.active img {
+            transform: scale(1);
+        }
+
+        @media (max-width: 768px) {
+            .resume-grid, .footer-info-grid, .projects-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Компонент для полноэкранного просмотра -->
+    <div class="overlay-view" id="imageViewer" onclick="closeImage()">
+        <img id="viewerImg" src="" alt="Просмотр">
+    </div>
+
+    <header class="main-header">
+        <div class="header-container">
+            <h1>Каташевцева Дарья Николаевна</h1>
+            <span class="subtitle">Будущий Разработчик ПО & CG-Designer (3D-Художник)</span>
+            <a href="https://t.me" target="_blank" class="telegram-link">Мой Telegram-канал</a>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- Секция 1: Резюме -->
+        <section class="section">
+            <div class="resume-grid">
+                <div class="profile-side">
+                    <img src="fff.png" alt="Каташевцева Дарья" class="profile-img" onclick="openImage(this.src)">
+                    
+                    <div class="skills-block">
+                        <h3>Навыки и интересы</h3>
+                        <ul>
+                            <li>3D-моделирование (High/Low Poly)</li>
+                            <li>Изучение языков программирования</li>
+                            <li>Проектирование и дизайн сайтов</li>
+                            <li>Разработка игр и интерактивных сред</li>
+                            <li>Текстурирование и шейдинг</li>
+                            <li>Цифровой рисунок и композиция</li>
+                            <li>Профиль обучения: ИнфМат</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="info-side">
+                    <div class="bio-text">
+                        <h3>Обо мне и целях</h3>
+                        <p>Я выпускница 11 класса. Окончила обучение по углубленному информационно-математическому профилю. Специальности на данный момент нет, но я активно стремлюсь к её получению. Моя цель — поступить в вуз/колледж и освоить профессии Software Developer и CG-Artist (3D-художник), развивая максимум практических навыков.</p>
+                    </div>
+
+                    <div class="education-block">
+                        <h3>Образование и Параметры</h3>
+                        
+                        <div class="edu-item">
+                            <h4>МБОУ ШР «СОШ №2» <span class="date">2015 - 2026 гг.</span></h4>
+                            <p class="edu-info">Иркутская область, г. Шелехов | Окончила 11 классов | <strong>Средний балл: 4.0</strong></p>
+                            <p>Базовое среднее образование на информационно-математическом профиле. Фундамент для программирования.</p>
+                            
+                            <div class="ege-panel">
+                                <div class="ege-row"><span class="ege-label">математика_профиль:</span><span class="ege-val">88</span></div>
+                                <div class="ege-row"><span class="ege-label">информатика:</span><span class="ege-val">87</span></div>
+                                <div class="ege-row"><span class="ege-label">русский_язык:</span><span class="ege-val">70</span></div>
+                            </div>
+                        </div>
+
+                        <div class="edu-item">
+                            <h4>ДХШ им. В.И. Сурикова <span class="date">2018 - 2023 гг.</span></h4>
+                            <p class="edu-info">Художественная школа | <strong>Средний балл: 5.0 (с отличием)</strong></p>
+                            <p>Изучение академического рисунка, живописи, станковой композиции и истории искусств. Начальная база для CG-дизайна.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция 2: Конкурсы и дипломы -->
+        <section class="section">
+            <h2>Достижения и дипломы</h2>
+            <div class="diplomas-container">
+                
+                <div class="diploma-card">
+                    <img src="fff.png" alt="Диплом ДХШ" class="doc-img" onclick="openImage(this.src)">
+                    <div class="text-block">
+                        <h4>Диплом об окончании ДХШ им. В.И. Сурикова</h4>
+                        <p>Свидетельство об успешном завершении полного курса художественного образования с отличием.</p>
+                    </div>
+                </div>
+
+                <div class="diploma-card">
+                    <img src="fff.png" alt="Аттестат 11 класс" class="doc-img" onclick="openImage(this.src)">
+                    <div class="text-block">
+                        <h4>Аттестат о среднем общем образовании</h4>
+                        <p>Документ об окончании 11 класса МБОУ ШР СОШ №2 (профиль инфмат).</p>
+                    </div>
+                </div>
+
+                <div class="diploma-card">
+                    <img src="fff.png" alt="Золотая медаль ГТО" class="doc-img" onclick="openImage(this.src)">
+                    <div class="text-block">
+                        <h4>Золотой знак отличия ВФСК ГТО</h4>
+                        <p>Высшая награда за отличную физическую подготовку и успешное выполнение всех спортивных нормативов.</p>
+                    </div>
+                </div>
+
+                <div class="diploma-card">
+                    <img src="fff.png" alt="Диплом ГТО 1" class="doc-img" onclick="openImage(this.src)">
+                    <div class="text-block">
+                        <h4>Диплом по ГТО №1</h4>
+                        <p>Официальный наградной документ за призовое место или личный рекорд в спортивных дисциплинах комплекса.</p>
+                    </div>
+                </div>
+
+                <div class="diploma-card">
+                    <img src="fff.png" alt="Диплом ГТО 2" class="doc-img" onclick="openImage(this.src)">
+                    <div class="text-block">
+                        <h4>Диплом по ГТО №2</h4>
+                        <p>Подтверждение спортивных успехов, волевых качеств и активного участия в соревнованиях.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Секция 3: Личные проекты -->
+        <section class="section">
+            <h2>Личные проекты</h2>
+            
+            <div class="project-row-title">3D-Моделирование (CG-Art)</div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <img src="fff.png" alt="Конь на палке" class="project-img" onclick="openImage(this.src)">
+                    <div class="text-block">
+                        <h4>3D-модель «Конь на палке»</h4>
+                        <p>Детализированная трехмерная модель с проработанной топологией, оптимизированная для игровых движков.</p>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <img src="fff.png" alt="Русалочка" class="project-img" onclick="openImage(this.src)">
+                    <div class="text-block">
+                        <h4>3D-модель «Русалочка»</h4>
+                        <p>Сложный проект персонажа, включающий анатомическое моделирование, проработку деталей и текстур.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-row-title">Разработка и Дизайн (Прочее)</div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <img src="fff.png" alt="Игра на Python" class="project-img" onclick="openImage(this.src)">
+                    <div class="text-block">
+                        <h4>Игрушка на базе Python</h4>
+                        <p>Собственный программный код проекта. Реализация логики, механики взаимодействия объектов и интерфейса.</p>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <img src="fff.png" alt="Дизайн проект" class="project-img" onclick="openImage(this.src)">
+                    <div class="text-block">
+                        <h4>Комплексный дизайн-проект</h4>
+                        <p>Разработка визуального стиля, макета, подбор цветовых схем и графических элементов для интерфейса.</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Секция 4: Рекомендации и контакты -->
+        <section class="section footer-info-grid">
+            <div class="recommendations">
+                <h2>Рекомендации</h2>
+                <div class="rec-item">
+                    <strong>Хитева Ольга Александровна</strong>
+                    <p>Почта: olghit@yandex.ru <br> Тел: +999999999</p>
+                </div>
+                <div class="rec-item">
+                    <strong>Барановская Ольга Леонидовна</strong>
+                    <p>Почта: olghit@yandex.ru <br> Тел: +999999999</p>
+                </div>
+            </div>
+            
+            <div class="contacts">
+                <h2>Контакты автора</h2>
+                <p><strong>Адрес:</strong> Иркутская область, г. Шелехов, 4-й микрорайон, д. 27</p>
+                <p><strong>Интересы:</strong> Разработка ПО / 3D-моделирование</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="page-footer">
+        <p>© 2026 Каташевцева Дарья • Личное портфолио</p>
+    </footer>
+
+    <!-- СКРИПТ ДЛЯ ПЛАВНОГО РАЗВЕРТЫВАНИЯ КАРТИНКИ -->
+    <script>
+        function openImage(imgSrc) {
+            const viewer = document.getElementById('imageViewer');
+            const viewerImg = document.getElementById('viewerImg');
+            viewerImg.src = imgSrc;
+            viewer.classList.add('active');
+        }
+
+        function closeImage() {
+            const viewer = document.getElementById('imageViewer');
+            viewer.classList.remove('active');
+        }
+    </script>
+
+</body>
+</html>
